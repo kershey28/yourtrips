@@ -1,0 +1,77 @@
+@use '../abstracts/variables';
+@use '../utilities/flow';
+
+.form-user {
+  &__content {
+    text-align: center;
+  }
+
+  //children-1
+  &__heading {
+    text-transform: capitalize;
+    color: var(--clr-neutral-200);
+  }
+
+  &__span {
+    color: var(--clr-accent-200);
+  }
+
+  &__input {
+    //typography
+    font-size: 1.5rem;
+    font-family: inherit;
+
+    //styling
+    border-radius: 2px;
+    background-color: var(--clr-white-opacity-100);
+    border: none;
+    border-bottom: 3px solid transparent;
+
+    //others
+    max-width: 20rem;
+    padding: 1.5rem 2rem;
+    transition: all 0.3s;
+
+    &:focus {
+      box-shadow: variables.$shadow-black-light;
+      outline: none;
+      border-bottom: 3px solid var(--clr-neutral-100);
+      background-color: var(--clr-white-opacity-200);
+
+      &:invalid {
+        border-bottom: 3px solid var(--clr-accent-300);
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      color: var(--clr-neutral-300);
+    }
+  }
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__label {
+    // typography
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--clr-neutral-200);
+
+    //alignment
+    margin-left: 2rem;
+    margin-top: 0.7rem;
+
+    //others
+    display: block;
+    transition: all 0.3s;
+    text-align: start;
+  }
+
+  &__btn {
+    margin-block: flow.$margin-sm;
+    font-size: var(--fs-body);
+  }
+}

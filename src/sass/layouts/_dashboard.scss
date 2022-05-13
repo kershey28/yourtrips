@@ -1,0 +1,47 @@
+@use '../abstracts/breakpoints';
+@use '../utilities/flow';
+
+.dashboard {
+  padding: flow.$margin-sm;
+  width: 40%;
+
+  @include breakpoints.respond(tab-port) {
+    width: 95vw;
+    height: 100vh;
+    border-radius: 75px;
+  }
+
+  //children-1
+  &__greetings {
+    color: var(--clr-neutral-100);
+    letter-spacing: 0.4rem;
+    text-align: center;
+    margin-top: flow.$margin-sm;
+  }
+  &__heading {
+    font-weight: 300;
+    margin-bottom: flow.$margin-md;
+  }
+
+  &__sub-heading {
+    margin-top: flow.$margin-sm;
+    font-weight: 300;
+  }
+
+  &__username {
+    color: var(--clr-accent-300);
+    font-weight: 600;
+    font-family: var(--ff-accent);
+    text-transform: capitalize;
+  }
+  //children-2
+  &__logo {
+    margin-bottom: flow.$margin-sm;
+  }
+
+  //children-3
+  &__btn-reset {
+    margin-top: flow.$margin-md;
+    font-size: var(--fs-body);
+  }
+}

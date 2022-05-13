@@ -1,0 +1,24 @@
+///////////////////////////////////////////
+// Gradients
+@mixin gradient($type) {
+  display: inline-block;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  @if $type == white-subtle {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-white-opacity-500),
+      var(--clr-white-opacity-300)
+    );
+  }
+
+  @content;
+}
+
+.gradient {
+  &--white-subtle {
+    @include gradient(white-subtle);
+  }
+}

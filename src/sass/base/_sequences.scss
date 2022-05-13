@@ -1,0 +1,26 @@
+// Bicycle
+.bicycle-animation {
+  & .bicycle__spokes {
+    animation: bike-rotate 2s infinite linear;
+  }
+
+  & .bicycle__gear {
+    animation: bike-rotate 3s infinite linear;
+  }
+
+  & .bicycle__ground {
+    animation: bike-move infinite linear;
+  }
+
+  & .bicycle__ground--1 {
+    animation-duration: 3s;
+  }
+
+  & .bicycle__ground--2 {
+    animation-duration: 4s;
+  }
+
+  & .bicycle__ground--3 {
+    animation-duration: 5s;
+  }
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Yourtrips</title>
+
+    <link rel="shortcut icon" type="image/png" href="assets/img/compass.png" />
+
+    <!--Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Leaflet Stylesheet-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+
+    <!--My Stylesheet-->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--Leaflet JS-->
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+
+    <!--My JS-->
+    <script defer src="js/index.js"></script>
+  </head>
+
+  <body>
+    <!--Main Container-->
+    <div class="container-main">
+      <!--Home-->
+      <div class="home" id="home">
+        <!--Hero-->
+        <header class="hero" id="hero">
+          <p class="error error__start">Error message</p>
+
+          <div class="logo hero__logo">
+            <p class="logo__heading">
+              <span class="logo__your">Your</span>trips
+            </p>
+            <img class="logo__pig" src="assets/img/compass.png" />
+          </div>
+
+          <div class="hero__text-box">
+            <h1 class="heading-display hero__heading gradient--white-subtle">
+              Your handy
+              <span class="hero__heading--togo">to-go</span>
+              list
+            </h1>
+          </div>
+
+          <div class="loader hero__loader">
+            <div class="loader__check">
+              <span class="loader__check-1"></span>
+              <span class="loader__check-2"></span>
+            </div>
+          </div>
+
+          <!--Bike-->
+          <div class="bicycle hero__bicycle bicycle-animation">
+            <div class="bicycle__bike">
+              <div class="bicycle__wheel bicycle__back-wheel">
+                <div class="bicycle__tire"></div>
+                <div class="bicycle__rim"></div>
+                <div class="bicycle__spokes"></div>
+                <div class="bicycle__spokes"></div>
+                <div class="bicycle__hub"></div>
+              </div>
+              <div class="bicycle__wheel bicycle__front-wheel">
+                <div class="bicycle__tire"></div>
+                <div class="bicycle__rim"></div>
+                <div class="bicycle__spokes"></div>
+                <div class="bicycle__spokes"></div>
+                <div class="bicycle__hub"></div>
+              </div>
+              <div class="bicycle__gear">
+                <div class="bicycle__gear-red"></div>
+                <div class="bicycle__tube bicycle__pedal-tube"></div>
+                <div class="bicycle__pedal"></div>
+              </div>
+              <div class="bicycle__tube bicycle__chain-tube"></div>
+              <div class="bicycle__tube bicycle__seat-tube-back"></div>
+              <div class="bicycle__tube bicycle__seat-tube-front"></div>
+              <div class="bicycle__tube bicycle__seat-tube-post"></div>
+              <div class="bicycle__tube bicycle__top-tube"></div>
+              <div class="bicycle__tube bicycle__top-handlebar-tube"></div>
+              <div class="bicycle__tube bicycle__top-handlebar-tube2"></div>
+              <div class="bicycle__tube bicycle__down-tube"></div>
+              <div class="bicycle__tube bicycle__head-tube"></div>
+              <div class="bicycle__tube bicycle__head-tube-post"></div>
+              <div class="bicycle__saddle"></div>
+              <div class="bicycle__handlebars"></div>
+            </div>
+            <div class="bicycle__grounds">
+              <div class="bicycle__ground bicycle__ground--1"></div>
+              <div class="bicycle__ground bicycle__ground--2"></div>
+              <div class="bicycle__ground bicycle__ground--3"></div>
+            </div>
+          </div>
+          <!--Bike End-->
+
+          <button class="btn-cta hero__btn btn-start btn-start__animation">
+            Start now &rarr;
+          </button>
+
+          <div class="hero__modal modal">
+            <div class="modal__form-user form-user">
+              <h2 class="form-user__heading heading-2">Let's draw our 
+                <span class="form-user__span">trips</span>
+              </h2>
+              <form class="form-user__content">
+                <input
+                  type="text"
+                  class="form-user__input"
+                  placeholder="your name"
+                  id="username"
+                />
+                <label for="username" class="form-user__label">Tripper</label>
+                <button class="btn-ghost-accent form-user__btn">Start</button>
+              </form>
+              <p class="error error__modal">Error message</p>
+            </div>   
+          </div>
+
+        </header>
+        <!--Hero End-->
+
+        <!--APP-->
+        <main class="app" id="app">
+          <!--App Container-->
+          <div class="app__container" id="appContainer">
+            <!--Dashboard-->
+            <div class="dashboard app__dashboard">
+
+              <div class="dashboard__greetings">
+                <h2 class="dashboard__heading">
+                  Where are we going next
+                  <span class="username dashboard__username">Username</span>?
+                </h2>
+                <h3 class="dashboard__sub-heading">Plan</h3>
+              </div>
+
+              <div class="logo dashboard__logo">
+                <p class="logo__heading">
+                  <span class="logo__your">Your</span>trips
+                </p>
+                <img class="logo__pig" src="assets/img/compass.png" />
+              </div>
+
+              <ul class="trips">
+                <p class="error error__form">Error message</p>
+                <form class="form hidden">
+                  <div class="form__row form__type">
+                    <label class="form__label">Type</label>
+                    <select class="form__input form__input--type">
+                      <option value="foodtrip">Foodtrip</option>
+                      <option value="nighttrip">Nighttrip</option>
+                      <option value="roadtrip">Roadtrip</option>
+                      <option value="beachtrip">Beachtrip</option>
+                      <option value="camptrip">Camptrip</option>
+                    </select>
+                  </div>
+                  <div class="form__row form__location">
+                    <label class="form__label">Location</label>
+                    <input
+                      type="text"
+                      class="form__input form__input--location"
+                      placeholder="street"
+                      required
+                    />
+                  </div>
+                  <div class="form__row form__date">
+                    <label class="form__label">Date</label>
+                    <input
+                      type="date"
+                      class="form__input form__input--date"
+                      required
+                    />
+                  </div>
+                  <div class="form__row form__time">
+                    <label class="form__label">Time</label>
+                    <input
+                      type="time"
+                      class="form__input form__input--time"
+                      required
+                    />
+                  </div>
+                  <div class="form__row form__trippers">
+                    <label class="form__label">Trippers</label>
+                    <input
+                      type="number"
+                      class="form__input form__input--trippers"
+                      placeholder="no. of goers"
+                      required
+                    />
+                  </div>
+                  <div class="form__row form__notes">
+                    <label class="form__label">Notes</label>
+                    <textarea
+                      class="form__input form__input--notes"
+                      placeholder="expectation on the trip"
+                    ></textarea>
+                  </div>
+
+                  <button class="form__btn btn-ops">&rarr;</button>
+                </form>
+
+                <!--Trip JS-->
+                <!-- <li class="trip" data-id="1234567890">
+                  <details class="trip__checklist">
+                    <summary class="trip__summary">
+                      <h2 class="trip__title">Foodtrip on April 14</h2>
+                      <div class="trip__emoji">🍔</div>
+                      <div class="trip__details trip__location">
+                        <span class="trip__icon">🚴🏼‍♂️</span>
+                        <span class="trip__value">Manila Bay</span>
+                      </div>
+                      <div class="trip__details trip__time">
+                        <span class="trip__icon">⏰</span>
+                        <span class="trip__value">12:00</span>
+                      </div>
+                      <div class="trip__details trip__trippers">
+                        <span class="trip__icon">👥</span>
+                        <span class="trip__value">4</span>
+                      </div>
+                    </summary>
+                    <div class="trip__details trip__notes">
+                      <span class="trip__icon">📌</span>
+                      <span class="trip__value"
+                        >Lorem ipsum dolor sit amet consectetur, adipisicing
+                        elit. Quam aperiam repudiandae reprehenderit molestiae
+                        eveniet vel illo praesentium, maxime repellat ea.</span
+                      >
+                    </div>
+                  </details>
+                </li> -->
+              </ul>
+
+              <button class="btn-reset btn-ghost dashboard__btn-reset">
+                Reset &downarrow;
+              </button>
+            </div>
+            <!--Dashboard End-->
+
+            <!--Map-->
+            <div class="map app__map" id="map"></div>
+            <!--Map End-->
+          </div>
+          <!--App Container End-->
+        </main>
+        <!--APP End-->
+      </div>
+      <!--Home End-->
+
+      <!--Footer-->
+      <footer class="footer">
+        <ul class="footer__nav">
+          <li class="footer__nav--item">
+            <a href="#" class="footer__nav--link">Feedbacks</a>
+          </li>
+          <li class="footer__nav--item">
+            <a href="#" class="footer__nav--link">Contact me</a>
+          </li>
+          <li class="footer__nav--item">
+            <a href="#" class="footer__nav--link">Careers</a>
+          </li>
+          <li class="footer__nav--item">
+            <a href="#" class="footer__nav--link">Privacy Policy</a>
+          </li>
+          <li class="footer__nav--item">
+            <a href="#" class="footer__nav--link">Terms</a>
+          </li>
+        </ul>
+        <div class="footer__copyright">
+          <p>Built and designed by Kershey Cari&#241o for demo project only.</p>
+          <p>&copy; 2022</p>
+        </div>
+      </footer>
+      <!--Footer End-->
+    </div>
+    <!--Main Container End-->
+  </body>
+</html>

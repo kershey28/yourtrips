@@ -1,0 +1,446 @@
+@use '../abstracts/breakpoints';
+
+$color-primary: hsl(220, 18.8%, 12.5%);
+$color-secondary: hsl(15.2, 96.9%, 56.8%);
+$wheelRadius: 120px;
+$tubeHeight: 5px;
+$tubeWidth: 100px;
+$saddleWidth: 50px;
+$saddleHeight: 10px;
+
+.bicycle {
+  position: relative;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  //children-1
+  &__bike {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    z-index: 3;
+
+    //sizing
+    max-width: 350px;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  //children of Bike
+  &__wheel {
+    //position
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+
+    //sizing
+    width: $wheelRadius;
+    height: $wheelRadius;
+    box-shadow: 0 10px 15px -12px rgba(0, 0, 0, 0.3);
+  }
+
+  &__tire {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    z-index: 2;
+
+    //sizing
+    width: inherit;
+    height: inherit;
+
+    //styling
+    border-radius: 50%;
+    border: 10px solid $color-primary;
+  }
+
+  &__rim {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    z-index: 1;
+
+    //sizing
+    width: $wheelRadius * 0.95;
+    height: $wheelRadius * 0.95;
+
+    //styling
+    border-radius: 50%;
+    border: 10px solid $color-secondary;
+  }
+
+  &__spokes {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    z-index: 1;
+
+    //sizing
+    width: $wheelRadius * 0.65;
+    height: $wheelRadius * 0.65;
+
+    //styling
+    border-radius: 50%;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 3px solid $color-secondary;
+    background-color: rgba(200, 100, 100, 0.1);
+
+    &:nth-of-type(3) {
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid $color-secondary;
+    }
+  }
+
+  &__hub {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+
+    //sizing
+    width: $wheelRadius * 0.2;
+    height: $wheelRadius * 0.2;
+
+    //styling
+    border-radius: 50%;
+    background-color: $color-secondary;
+  }
+
+  &__back-wheel {
+    left: 0;
+  }
+
+  &__front-wheel {
+    right: 0;
+  }
+
+  &__gear {
+    //position
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: calc(#{$wheelRadius} + #{$wheelRadius * 0.33});
+    z-index: 4;
+
+    //sizing
+    width: $wheelRadius * 0.3;
+    height: $wheelRadius * 0.3;
+
+    //styling
+    border-radius: 50%;
+    background-color: $color-primary;
+  }
+
+  &__gear-red {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+
+    //sizing
+    width: $wheelRadius * 0.2;
+    height: $wheelRadius * 0.2;
+
+    //styling
+    border-radius: 50%;
+    border: 3px solid $color-secondary;
+  }
+
+  &__pedal-tube {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: -30px 0 0 0;
+
+    //others
+    transform: rotate(-90deg);
+    width: $tubeWidth * 0.2;
+  }
+
+  &__pedal {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: -50px 0 0 0;
+    z-index: 3;
+
+    //sizing
+    width: 20px;
+    height: 5px;
+
+    //styling
+    background-color: $color-secondary;
+    border-radius: 5px;
+  }
+
+  &__tube {
+    //position
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+
+    //others
+    height: $tubeHeight;
+    border-radius: $tubeHeight;
+    background-color: $color-primary;
+  }
+
+  &__chain-tube {
+    left: calc(#{$wheelRadius} / 2);
+    width: $tubeWidth * 1.2;
+  }
+
+  &__seat-tube-back {
+    left: calc(#{$wheelRadius} / 2);
+    transform-origin: left;
+    transform: rotate(-60deg);
+    width: $tubeWidth * 1.2;
+  }
+
+  &__seat-tube-front {
+    left: calc(#{$wheelRadius} / 2);
+    transform-origin: right;
+    transform: rotate(60deg);
+    width: $tubeWidth * 1.2;
+  }
+
+  &__seat-tube-post {
+    //position
+    left: calc((#{$wheelRadius} / 2) - 20px);
+    z-index: 1;
+
+    //styling
+    transform-origin: right;
+    transform: rotate(60deg);
+    background-color: $color-secondary;
+
+    //sizing
+    height: calc(#{$tubeHeight} - 1px);
+    width: $tubeWidth * 1.4;
+  }
+
+  &__top-tube {
+    left: $wheelRadius;
+    bottom: initial;
+    top: 44px;
+    width: $tubeWidth * 1.13;
+  }
+
+  &__top-handlebar-tube {
+    //position
+    right: $wheelRadius - 8px;
+    bottom: initial;
+    top: 25px;
+
+    //others
+    width: $tubeWidth * 0.2;
+    background-color: $color-secondary;
+  }
+
+  &__top-handlebar-tube2 {
+    //position
+    right: $wheelRadius - 30px;
+    bottom: initial;
+    top: 25px;
+
+    //others
+    width: $tubeWidth * 0.25;
+    background-color: $color-primary;
+    border-radius: 0%;
+  }
+
+  &__down-tube {
+    left: calc(#{$wheelRadius} + #{$wheelRadius * 0.5});
+    width: $tubeWidth;
+    transform-origin: left;
+    transform: rotate(-50deg);
+  }
+
+  &__head-tube {
+    right: calc(#{$wheelRadius} / 2);
+    transform-origin: right;
+    transform: rotate(60deg);
+    width: $tubeWidth * 1.2;
+  }
+
+  &__head-tube-post {
+    //position
+    right: calc(#{$wheelRadius} / 2);
+    z-index: 1;
+
+    //styling
+    transform-origin: right;
+    transform: rotate(60deg);
+    background-color: $color-secondary;
+
+    //sizing
+    width: $tubeWidth * 1.4;
+    height: calc(#{$tubeHeight} - 1px);
+  }
+
+  &__saddle {
+    //position
+    position: absolute;
+    margin: auto;
+    top: 20px;
+    left: $tubeWidth * 0.85;
+    z-index: 2;
+
+    //sizing
+    width: $saddleWidth;
+    height: $saddleHeight;
+
+    //styling
+    border-top-left-radius: 50%;
+    border-top-right-radius: 100%;
+    border-bottom-left-radius: 50%;
+    background-color: $color-primary;
+  }
+
+  &__handlebars {
+    //position
+    position: absolute;
+    margin: auto;
+    top: 25px;
+    right: calc(#{$tubeWidth} / 2 + 25px);
+    z-index: 2;
+
+    //sizing
+    width: 30px;
+    height: 30px;
+
+    //borders
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top: $tubeHeight solid $color-primary;
+    border-right: $tubeHeight solid $color-primary;
+    border-bottom: $tubeHeight solid $color-secondary;
+  }
+
+  //children-2
+  &__grounds {
+    //position
+    position: absolute;
+    margin: auto;
+    inset: 0;
+
+    //sizing
+    width: 600px;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  //children of Grounds
+  &__ground {
+    position: absolute;
+    margin: auto;
+    z-index: -1;
+    background-color: $color-secondary;
+
+    &--1 {
+      //position
+      bottom: 0;
+      right: -150px;
+      z-index: 5;
+
+      //sizing
+      width: 100px;
+      height: 4px;
+      border-radius: 10px;
+
+      &::before {
+        content: '';
+
+        //position
+        position: absolute;
+        margin: auto;
+        top: -60px;
+        left: 150px;
+
+        //sizing
+        width: 40px;
+        height: 30px;
+
+        //styling
+        border-top-right-radius: 60%;
+        border-top-left-radius: 30%;
+        border-bottom-left-radius: 20%;
+        background-color: $color-secondary;
+      }
+    }
+
+    &--2 {
+      //position
+      bottom: 70px;
+      right: -250px;
+      z-index: 1;
+
+      //sizing
+      width: 100px;
+      height: 2px;
+      border-radius: 10px;
+
+      &::before {
+        content: '';
+
+        //position
+        position: absolute;
+        margin: auto;
+        top: -30px;
+        left: 200px;
+
+        //sizing
+        width: 20px;
+        height: 10px;
+
+        //styling
+        border-top-right-radius: 60%;
+        border-top-left-radius: 30%;
+        border-bottom-left-radius: 20%;
+        background-color: $color-secondary;
+      }
+    }
+
+    &--3 {
+      //position
+      top: 50px;
+      right: -300px;
+      z-index: 1;
+
+      //sizing
+      width: 100px;
+      height: 2px; //2px
+      border-radius: 10px;
+
+      &::before {
+        content: '';
+
+        //position
+        position: absolute;
+        margin: auto;
+        top: 10px;
+        left: -100px;
+
+        //sizing
+        width: 10px;
+        height: 5px;
+
+        //styling
+        border-top-right-radius: 60%;
+        border-top-left-radius: 30%;
+        border-bottom-left-radius: 20%;
+        background-color: $color-secondary;
+      }
+    }
+  }
+}

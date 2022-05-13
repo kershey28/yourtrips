@@ -1,0 +1,53 @@
+@use '../abstracts/breakpoints';
+
+.modal {
+  //position
+  position: fixed;
+  z-index: 555;
+
+  //sizing
+  height: 100vh;
+  width: 100%;
+
+  //styling
+  background-color: var(--clr-black-opacity-400);
+  transition: all 0.5s;
+
+  //alignment
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  //appearance
+  opacity: 0;
+  visibility: hidden;
+
+  &__form-user {
+    //sizing
+    width: max-content;
+    height: 28rem;
+    padding: 2rem 2.5rem;
+
+    //styling
+    background-image: linear-gradient(
+      to top right,
+      var(--clr-primary-400),
+      var(--clr-primary-200),
+      var(--clr-primary-100)
+    );
+    border: none;
+    border-radius: 25px;
+
+    //alignment
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+
+    @include breakpoints.respond(phone-reg) {
+      width: 90%;
+    }
+  }
+}

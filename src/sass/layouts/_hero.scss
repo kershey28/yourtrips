@@ -1,0 +1,35 @@
+@use '../abstracts/breakpoints';
+
+.hero {
+  height: 100vh;
+  position: relative;
+
+  &__heading {
+    text-align: center;
+
+    @include breakpoints.respond(phone-reg) {
+      width: 25rem;
+    }
+
+    @include breakpoints.respond(phone-mini) {
+      display: none;
+    }
+
+    &--togo {
+      color: var(--clr-accent-300);
+    }
+  }
+
+  &__bicycle {
+    width: 100%;
+    height: 50%;
+
+    @include breakpoints.respond(phone-reg) {
+      width: 150%;
+      height: 30%;
+    }
+  }
+
+  //TEST
+  // display: none;
+}

@@ -1,0 +1,12 @@
+@use '../utilities/flow';
+
+.error {
+  opacity: 0;
+  visibility: hidden;
+  color: var(--clr-accent-300);
+  text-align: center;
+
+  &__modal {
+    margin-top: flow.$margin-sm-neg;
+  }
+}

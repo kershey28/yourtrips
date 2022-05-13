@@ -1,0 +1,79 @@
+@use 'breakpoints';
+
+///////////////////////////////////////////
+// Variables
+
+/* Font Sizes  */
+$type-scale: (
+  'regular': (
+    'display': clamp(5rem, 8rem, 10rem),
+    'heading': 3.6rem,
+    'subheading': 2.4rem,
+    'label': 1.8rem,
+    'body': 1.4rem,
+    'caption': 1rem,
+  ),
+  'small': (
+    'display': 5rem,
+    'heading': 3rem,
+    'subheading': 2rem,
+    'label': 1.4rem,
+    'body': 1rem,
+    'caption': 0.8rem,
+  ),
+);
+
+:root {
+  /* Font Sizes  */
+  @each $screen-size, $font-size in $type-scale {
+    @if $screen-size == 'regular' {
+      @each $size, $value in $font-size {
+        --fs-#{$size}: #{$value};
+      }
+    } @else {
+      @include breakpoints.respond(phone-reg) {
+        @each $size, $value in $font-size {
+          --fs-#{$size}: #{$value};
+        }
+      }
+    }
+  }
+
+  /* Font Family */
+  --ff-primary: 'Roboto Flex', sans-serif;
+  --ff-accent: 'Dosis', serif;
+}
+
+///////////////////////////////////////////
+// Headings
+.heading-display {
+  font-size: var(--fs-display);
+  font-weight: 300;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.heading-1 {
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.heading-2 {
+  font-size: var(--fs-subheading);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1rem;
+}
+
+.heading-3 {
+  font-size: var(--fs-label);
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.caption {
+  font-size: var(--fs-caption);
+}

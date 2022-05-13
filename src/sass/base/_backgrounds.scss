@@ -1,0 +1,32 @@
+@use '../abstracts/breakpoints';
+
+// main Container
+.container-main {
+  background-color: var(--clr-primary-300);
+}
+
+// children
+.home {
+  background-image: linear-gradient(
+    to top right,
+    var(--clr-primary-400),
+    var(--clr-primary-200),
+    var(--clr-primary-100)
+  );
+}
+
+//children of App
+.app__container {
+  //TEST
+  background-color: var(--clr-neutral-100);
+}
+
+.dashboard {
+  //TEST
+  background-image: linear-gradient(
+    to top right,
+    var(--clr-primary-400),
+    var(--clr-primary-200),
+    var(--clr-primary-100)
+  );
+}

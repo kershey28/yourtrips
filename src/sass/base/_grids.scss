@@ -1,0 +1,32 @@
+@use '../abstracts/breakpoints';
+
+// childrens of Main Container
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    display: flex;
+
+    @include breakpoints.respond(tab-port) {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+  }
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

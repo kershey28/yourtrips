@@ -1,0 +1,21 @@
+.logo {
+  color: var(--clr-neutral-100);
+  // display: inline-block;
+  font-weight: 500;
+
+  &__heading {
+    display: inline;
+    font-size: var(--fs-subheading);
+  }
+
+  &__your {
+    color: var(--clr-accent-300);
+  }
+
+  &__pig {
+    height: 2.5rem;
+    width: 2.5rem;
+    position: relative;
+    top: 0.5rem;
+  }
+}

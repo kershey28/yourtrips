@@ -1,0 +1,141 @@
+@use '../abstracts/variables';
+
+@mixin btn-regular($type) {
+  & {
+    //sizing
+    padding: 1.5rem 2rem;
+    width: max-content;
+
+    //typography
+    text-decoration: none;
+    font-size: var(--fs-label);
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+
+    //styling
+    border-radius: 10rem;
+    transition: all 0.2s;
+
+    //reset
+    appearance: none;
+    cursor: pointer;
+
+    //layout
+    display: inline-block;
+    position: relative;
+  }
+
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  @if $type == accent {
+    background-color: var(--clr-accent-400);
+    color: var(--clr-neutral-100);
+    box-shadow: variables.$shadow-white-light;
+    border: 1px solid var(--clr-accent-300);
+
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: variables.$shadow-white-dark;
+    }
+  }
+
+  @if $type == ghost {
+    background-color: transparent;
+    box-shadow: variables.$shadow-white-light;
+    color: var(--clr-neutral-100);
+    border: 1px solid var(--clr-neutral-100);
+
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: variables.$shadow-white-dark;
+    }
+  }
+
+  @if $type == ghost-accent {
+    background-color: transparent;
+    box-shadow: variables.$shadow-white-light;
+    color: var(--clr-accent-300);
+    border: 1px solid var(--clr-accent-300);
+
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: variables.$shadow-white-dark;
+    }
+  }
+
+  @content;
+}
+
+.btn-cta {
+  @include btn-regular(accent);
+}
+
+.btn-ghost {
+  @include btn-regular(ghost);
+}
+
+.btn-ghost-accent {
+  @include btn-regular(ghost-accent);
+}
+
+// Operation Button
+@mixin btn-ops() {
+  & {
+    //sizing
+    display: inline-block;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.8rem;
+    padding: 1px;
+
+    //reset
+    appearance: none;
+    cursor: pointer;
+    border: none;
+
+    //styling
+    background-color: var(--clr-accent-300);
+    color: var(--clr-neutral-100);
+    border-radius: 0.7rem;
+    transition: all 0.3s;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: variables.$shadow-black-light;
+  }
+
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  @content;
+}
+
+.btn-ops {
+  @include btn-ops;
+}
