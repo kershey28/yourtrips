@@ -1,3 +1,5 @@
+@use '../abstracts/breakpoints';
+
 // Bicycle
 .bicycle-animation {
   & .bicycle__spokes {
@@ -10,6 +12,10 @@
 
   & .bicycle__ground {
     animation: bike-move infinite linear;
+
+    @include breakpoints.respond(phone-reg) {
+      animation: none;
+    }
   }
 
   & .bicycle__ground--1 {

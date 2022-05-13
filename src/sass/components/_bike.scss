@@ -338,6 +338,10 @@ $saddleHeight: 10px;
     width: 600px;
     height: 200px;
     overflow: hidden;
+
+    @include breakpoints.respond(phone-reg) {
+      display: none;
+    }
   }
 
   //children of Grounds
