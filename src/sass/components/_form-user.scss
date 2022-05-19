@@ -23,7 +23,7 @@
 
     //styling
     border-radius: 2px;
-    background-color: var(--clr-white-opacity-100);
+    background-color: var(--clr-white-opacity-200);
     border: none;
     border-bottom: 3px solid transparent;
 
@@ -36,7 +36,6 @@
       box-shadow: variables.$shadow-black-light;
       outline: none;
       border-bottom: 3px solid var(--clr-neutral-100);
-      background-color: var(--clr-white-opacity-200);
 
       &:invalid {
         border-bottom: 3px solid var(--clr-accent-300);

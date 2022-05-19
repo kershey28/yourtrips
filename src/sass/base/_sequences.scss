@@ -1,5 +1,16 @@
 @use '../abstracts/breakpoints';
 
+// Hero
+.hero-animation {
+  & .hero__bicycle {
+    animation: moveInLeft 1s backwards ease-out 1.5s;
+  }
+
+  & .hero__btn {
+    animation: pulsate--white 1s ease-in 2s 5;
+  }
+}
+
 // Bicycle
 .bicycle-animation {
   & .bicycle__spokes {
@@ -12,6 +23,7 @@
 
   & .bicycle__ground {
     animation: bike-move infinite linear;
+    animation-delay: 2.5s;
 
     @include breakpoints.respond(phone-reg) {
       animation: none;

@@ -57,7 +57,7 @@
 
     //styling
     border-radius: 3px;
-    background-color: var(--clr-neutral-300);
+    background-color: var(--clr-neutral-200);
     transition: all 0.2s;
 
     //sizing
@@ -66,7 +66,6 @@
 
     &:focus {
       outline: none;
-      background-color: var(--clr-neutral-200);
     }
 
     &::-webkit-input-placeholder {

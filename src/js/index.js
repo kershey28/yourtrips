@@ -43,55 +43,7 @@ const portMediaQuery = window.matchMedia('(max-width: 900px)');
 const loader = document.querySelector('.loader');
 const loaderCheck = document.querySelector('.loader__check');
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////// Functions  //////////////////////////////////////////
-
-/***************************** Transitions ********************************/
-
-////////  Transition In  ////////
-
-const transitionIn = () => {
-  homeDOM.style.height = '100%';
-  heroDOM.classList.add('hero-transition-out');
-  appDOM.classList.add('app-transition-in');
-  appContainerDOM.classList.add('appCon-transition-in');
-};
-
-////////  Spinner  ////////
-const loadSpinner = () => {
-  const endLoad = () => {
-    loader.classList.remove('loader-active');
-  };
-
-  const addCheck = () => {
-    loaderCheck.classList.add('loader-active');
-  };
-
-  loader.classList.add('loader-active');
-  setTimeout(addCheck, 3000);
-  setTimeout(endLoad, 4000);
-};
-
-/***************************** Display Pop-ups ********************************/
-
-//////// Errors ////////
-const renderError = (errorMessage, element, remove = true) => {
-  const revealError = () => {
-    element.textContent = errorMessage;
-    element.classList.add('display-error');
-  };
-
-  const removeError = () => {
-    element.classList.remove('display-error');
-  };
-
-  revealError();
-
-  //reset
-  if (remove) setTimeout(removeError, 3000);
-};
-
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// MAIN FUNCTIONALITY //////////////////////////////////////////
 
 /***************************** Classes *******************************************/
@@ -177,13 +129,13 @@ class App {
     containerTrips.addEventListener('click', this._moveToPopup.bind(this));
   }
 
-  //Map
+  /***************************** Map *******************************************/
   _getPosition() {
     if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(
         this._loadMap.bind(this),
         function () {
-          renderError(
+          this._renderError(
             'Please allow to locate your position to start!',
             errorStart,
             false
@@ -193,10 +145,29 @@ class App {
   }
 
   _loadMap(position) {
-    const { latitude } = position.coords;
-    const { longitude } = position.coords;
+    // To Load the Map with Saved Coords
+    const produceCoords = position => {
+      if (!position.coords && this.coords) {
+        const coords = this.coords;
 
-    const coords = [latitude, longitude];
+        return coords;
+      }
+
+      if (position.coords) {
+        const { latitude } = position.coords;
+        const { longitude } = position.coords;
+
+        const coords = [latitude, longitude];
+
+        // Update Coords
+        app.coords = coords;
+        this._setLocalStorageCoords();
+
+        return coords;
+      }
+    };
+
+    const coords = produceCoords(position);
 
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
@@ -209,7 +180,7 @@ class App {
     this.#trips.forEach(trip => this._renderTripMarker(trip));
   }
 
-  //Button Event Handlers
+  /***************************** Button Event Handlers *******************************************/
   _userStart(e) {
     e.preventDefault();
     bike.classList.remove('bicycle-animation');
@@ -234,11 +205,11 @@ class App {
       this._displayUsername();
       this._doTransition();
     } else {
-      renderError('Please enter your name!', errorModal);
+      this._renderError('Please enter your name!', errorModal);
     }
   }
 
-  //Display
+  /***************************** View *******************************************/
   _displayUsername() {
     userName.textContent = this.username;
   }
@@ -248,6 +219,27 @@ class App {
   }
 
   _doTransition() {
+    const transitionIn = () => {
+      homeDOM.style.height = '100%';
+      heroDOM.classList.add('hero-transition-out');
+      appDOM.classList.add('app-transition-in');
+      appContainerDOM.classList.add('appCon-transition-in');
+    };
+
+    const loadSpinner = () => {
+      const endLoad = () => {
+        loader.classList.remove('loader-active');
+      };
+
+      const addCheck = () => {
+        loaderCheck.classList.add('loader-active');
+      };
+
+      loader.classList.add('loader-active');
+      setTimeout(addCheck, 3000);
+      setTimeout(endLoad, 4000);
+    };
+
     loadSpinner();
     setTimeout(transitionIn, 4200);
   }
@@ -258,7 +250,7 @@ class App {
     };
 
     this.#mapEvent = mapE;
-    this._scrollIntoForm();
+    this._scrollIntoPosition('form');
     form.classList.remove('hidden');
 
     //delay to set the focus
@@ -282,7 +274,7 @@ class App {
     return this;
   }
 
-  //Production
+  /***************************** Production *******************************************/
   _newTrip(e) {
     //variables for validation
     const allPositive = (...inputs) => inputs.every(inp => inp > 0);
@@ -315,7 +307,7 @@ class App {
     if (!allPositive(planTrippers)) {
       this._clearInputTrippers();
 
-      return renderError('Invalid Trippers count!', errorForm);
+      return this._renderError('Invalid Trippers count!', errorForm);
     }
 
     // Trip Creation
@@ -344,7 +336,7 @@ class App {
     this._setLocalStorage();
   }
 
-  //Rendering
+  /***************************** Rendering *******************************************/
   _renderTripMarker(trip) {
     L.marker(trip.coords)
       .addTo(this.#map)
@@ -393,10 +385,26 @@ class App {
 
     form.insertAdjacentHTML('afterend', html);
 
-    this._scrollIntoMap();
+    this._scrollIntoPosition('map');
   }
 
-  //Animation View
+  _renderError(errorMessage, element, remove = true) {
+    const revealError = () => {
+      element.textContent = errorMessage;
+      element.classList.add('display-error');
+    };
+
+    const removeError = () => {
+      element.classList.remove('display-error');
+    };
+
+    revealError();
+
+    //reset
+    if (remove) setTimeout(removeError, 3000);
+  }
+
+  /***************************** Animation *******************************************/
   _moveToPopup(e) {
     const tripEl = e.target.closest('.trip');
 
@@ -412,19 +420,20 @@ class App {
     });
   }
 
-  _scrollIntoMap = () => {
-    if (portMediaQuery.matches) {
-      mapDOM.scrollIntoView({ behavior: 'smooth' });
-    }
+  _scrollIntoPosition = position => {
+    let coord;
+    const portMediaQuery = window.matchMedia('(max-width: 900px)');
+
+    if (position === 'map' && portMediaQuery.matches) coord = 0;
+    if (position === 'form' && portMediaQuery.matches) coord = 600;
+
+    window.scrollTo({
+      top: coord,
+      behavior: 'smooth',
+    });
   };
 
-  _scrollIntoForm = () => {
-    if (portMediaQuery.matches) {
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  //Local Storage
+  /***************************** Local Storage *******************************************/
   _setLocalStorage() {
     localStorage.setItem('trips', JSON.stringify(this.#trips));
   }
@@ -433,18 +442,8 @@ class App {
     localStorage.setItem('username', JSON.stringify(this.username));
   }
 
-  _getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('trips'));
-    const dataUsername = JSON.parse(localStorage.getItem('username'));
-
-    if (data) {
-      this.#trips = data;
-      this.#trips.forEach(trip => this._renderTrip(trip));
-    }
-
-    if (dataUsername) this.username = dataUsername;
-
-    console.log(this.#trips);
+  _setLocalStorageCoords() {
+    localStorage.setItem('coords', JSON.stringify(this.coords));
   }
 
   _setUsername() {
@@ -453,7 +452,21 @@ class App {
     return this;
   }
 
-  //Reset
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('trips'));
+    const dataUsername = JSON.parse(localStorage.getItem('username'));
+    const dataCoords = JSON.parse(localStorage.getItem('coords'));
+
+    if (data) {
+      this.#trips = data;
+      this.#trips.forEach(trip => this._renderTrip(trip));
+    }
+
+    if (dataUsername) this.username = dataUsername;
+
+    if (dataCoords) this.coords = dataCoords;
+  }
+
   reset() {
     localStorage.removeItem('trips');
     localStorage.removeItem('username');
@@ -465,3 +478,4 @@ const app = new App();
 
 //TEST
 console.log(app);
+console.log('TEST');
