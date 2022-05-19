@@ -106,6 +106,7 @@ class Trip {
 
 class App {
   username;
+  coords;
   #map;
   #mapZoomLevel = 13;
   #mapEvent;
@@ -135,7 +136,7 @@ class App {
       navigator.geolocation.getCurrentPosition(
         this._loadMap.bind(this),
         function () {
-          this._renderError(
+          app._renderError(
             'Please allow to locate your position to start!',
             errorStart,
             false
@@ -145,29 +146,10 @@ class App {
   }
 
   _loadMap(position) {
-    // To Load the Map with Saved Coords
-    const produceCoords = position => {
-      if (!position.coords && this.coords) {
-        const coords = this.coords;
+    const { latitude } = position.coords;
+    const { longitude } = position.coords;
 
-        return coords;
-      }
-
-      if (position.coords) {
-        const { latitude } = position.coords;
-        const { longitude } = position.coords;
-
-        const coords = [latitude, longitude];
-
-        // Update Coords
-        app.coords = coords;
-        this._setLocalStorageCoords();
-
-        return coords;
-      }
-    };
-
-    const coords = produceCoords(position);
+    const coords = [latitude, longitude];
 
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
@@ -442,10 +424,6 @@ class App {
     localStorage.setItem('username', JSON.stringify(this.username));
   }
 
-  _setLocalStorageCoords() {
-    localStorage.setItem('coords', JSON.stringify(this.coords));
-  }
-
   _setUsername() {
     this.username = inputUsername.value;
     this._setLocalStorageUsername();
@@ -455,7 +433,6 @@ class App {
   _getLocalStorage() {
     const data = JSON.parse(localStorage.getItem('trips'));
     const dataUsername = JSON.parse(localStorage.getItem('username'));
-    const dataCoords = JSON.parse(localStorage.getItem('coords'));
 
     if (data) {
       this.#trips = data;
@@ -463,8 +440,6 @@ class App {
     }
 
     if (dataUsername) this.username = dataUsername;
-
-    if (dataCoords) this.coords = dataCoords;
   }
 
   reset() {
